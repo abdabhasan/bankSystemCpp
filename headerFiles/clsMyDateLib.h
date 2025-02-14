@@ -818,13 +818,13 @@ public:
     return dateFrom;
   }
 
-  static bool isDate1Afterdate2(clsMyDateLib date1, clsMyDateLib date2) {
+  static bool isDate1AfterDate2(clsMyDateLib date1, clsMyDateLib date2) {
     return (!isDate1BeforeDate2(date1, date2) &&
             !isDate1EqualDate2(date1, date2));
   }
 
   bool isDateAfterdate2(clsMyDateLib date2) {
-    return isDate1Afterdate2(*this, date2);
+    return isDate1AfterDate2(*this, date2);
   }
 
   enum enDateCompare { before = -1, equal = 0, after = 1 };
@@ -836,7 +836,7 @@ public:
     if (isDate1EqualDate2(date1, date2))
       return enDateCompare::equal;
 
-    /* if (isDate1Afterdate2(date1,date2))
+    /* if (isDate1AfterDate2(date1,date2))
              return enDateCompare::after;*/
 
     // this is faster
