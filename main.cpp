@@ -47,9 +47,43 @@ void updateClient() {
   client.saveClient();
 }
 
+void addNewClient() {
+  string accountNumber = "";
+
+  cout << "\nPlease enter Account Number: ";
+  accountNumber = clsMyInputValidateLib::readString();
+
+  while (clsBankClient::isClientExist(accountNumber)) {
+    cout << "\nAccount already exists, try again! ";
+    accountNumber = clsMyInputValidateLib::readString();
+  }
+
+  clsBankClient newClient = clsBankClient::getAddNewClientObject(accountNumber);
+
+  readClientInfo(newClient);
+
+  clsBankClient::enSaveResults saveResult;
+
+  saveResult = newClient.saveClient();
+
+  switch (saveResult) {
+  case clsBankClient::enSaveResults::svSucceeded: {
+    cout << "\nAccount created successfully :) " << endl;
+    newClient.printClient();
+    break;
+  }
+  case clsBankClient::enSaveResults::svFaildEmptyObject: {
+    cout << "\nError...";
+    break;
+  }
+
+  default:
+    break;
+  }
+}
+
 int main() {
 
-  updateClient();
-
+  addNewClient();
   return 0;
 }
