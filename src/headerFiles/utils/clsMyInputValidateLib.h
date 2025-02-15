@@ -5,7 +5,7 @@
 #include <limits>
 #include <string>
 
-class clsInputValidate {
+class clsMyInputValidateLib {
 
 public:
   static bool isNumberBetween(short number, short from, short to) {
@@ -105,5 +105,12 @@ public:
 
   static bool isValideDate(clsMyDateLib Date) {
     return clsMyDateLib::isValidDate(Date);
+  }
+
+  static string readString() {
+    string s1 = "";
+    // Usage of std::ws will extract all the whitespace character
+    getline(cin >> ws, s1);
+    return s1;
   }
 };
