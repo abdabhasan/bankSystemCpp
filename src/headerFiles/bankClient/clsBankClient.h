@@ -1,6 +1,7 @@
 #pragma once
 
 #include "../person/clsPerson.h"
+#include "../utils/clsMyInputValidateLib.h"
 #include "../utils/clsMyStringLib.h"
 #include <fstream>
 #include <iostream>
@@ -32,6 +33,69 @@ private:
 
   static clsBankClient _getEmptyClientObject() {
     return clsBankClient(enMode::emptyMode, "", "", "", "", "", 0, 0);
+  }
+
+  static string _convertClientObjectToLine(clsBankClient client,
+                                           string seperator = "#//#") {
+
+    string stClientRecord = "";
+
+    stClientRecord += client.getFirstName() + seperator;
+    stClientRecord += client.getLastName() + seperator;
+    stClientRecord += client.getEmail() + seperator;
+    stClientRecord += client.getPhone() + seperator;
+    stClientRecord += client.getAccountNumber() + seperator;
+    stClientRecord += to_string(client.getPinCode()) + seperator;
+    stClientRecord += to_string(client.getAccountBalance()) + seperator;
+
+    return stClientRecord;
+  }
+
+  static void _saveClientsDataToFile(vector<clsBankClient> vClients) {
+
+    fstream myFile;
+    myFile.open("clients.txt", ios::out); // overwrite mode
+
+    string dataLine;
+
+    if (myFile.is_open()) {
+
+      for (clsBankClient c : vClients) {
+        dataLine = _convertClientObjectToLine(c);
+        myFile << dataLine << endl;
+      }
+    }
+  }
+
+  static vector<clsBankClient> _loadClientsDataFromFile() {
+    vector<clsBankClient> vClients;
+
+    fstream myFile;
+    myFile.open("clients.txt", ios::in); // read mode
+
+    if (myFile.is_open()) {
+      string line;
+
+      while (getline(myFile, line)) {
+        clsBankClient client = _convertLineToClientObject(line);
+        vClients.push_back(client);
+      }
+      myFile.close();
+    }
+    return vClients;
+  }
+
+  void _updateClient() {
+    vector<clsBankClient> vClients;
+    vClients = _loadClientsDataFromFile();
+
+    for (clsBankClient &c : vClients) {
+      if (c.getAccountNumber() == getAccountNumber()) {
+        c = *this;
+        break;
+      }
+    }
+    _saveClientsDataToFile(vClients);
   }
 
 public:
@@ -122,5 +186,23 @@ public:
     clsBankClient client =
         clsBankClient::findClientByAccountNumber(accountNumber);
     return (!client._isEmpty());
+  }
+
+  enum enSaveResults { svFaildEmptyObject = 0, svSucceeded = 1 };
+
+  enSaveResults saveClient() {
+
+    switch (_mode) {
+    case enMode::emptyMode:
+      return enSaveResults::svFaildEmptyObject;
+
+    case enMode::updateMode: {
+      _updateClient();
+      return enSaveResults::svSucceeded;
+    }
+
+    default:
+      break;
+    }
   }
 };
