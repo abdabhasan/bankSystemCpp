@@ -82,8 +82,37 @@ void addNewClient() {
   }
 }
 
+void deleteClient() {
+  string accountNumber = "";
+  cout << "\nPlease enter account number : ";
+  accountNumber = clsMyInputValidateLib::readString();
+  while (!clsBankClient::isClientExist(accountNumber)) {
+    cout << "\nAccount not found, try again: ";
+    accountNumber = clsMyInputValidateLib::readString();
+  }
+  clsBankClient client =
+      clsBankClient::findClientByAccountNumber(accountNumber);
+  client.printClient();
+
+  cout << "\nAre you sure? y/n?  ";
+
+  char answer = 'n';
+  cin >> answer;
+
+  if (answer == 'y' || answer == 'Y') {
+    if (client.deleteClient()) {
+      cout << "\nClient deleted successfully! ";
+
+      client.printClient();
+    } else {
+      cout << "\nError, Client was not deleted!" << endl;
+    }
+  }
+}
+
 int main() {
 
-  addNewClient();
+  deleteClient();
+
   return 0;
 }

@@ -19,6 +19,7 @@ private:
   string _accountNumber;
   short _pinCode;
   float _accountBalance;
+  bool _markedForDelete = false;
 
   bool _isEmpty() { return (_mode == enMode::emptyMode); }
   static clsBankClient _convertLineToClientObject(string line,
@@ -61,8 +62,12 @@ private:
     if (myFile.is_open()) {
 
       for (clsBankClient c : vClients) {
-        dataLine = _convertClientObjectToLine(c);
-        myFile << dataLine << endl;
+
+        if (c.getMarkedForDelete() == false) {
+
+          dataLine = _convertClientObjectToLine(c);
+          myFile << dataLine << endl;
+        }
       }
     }
   }
@@ -136,6 +141,8 @@ public:
   }
 
   float getAccountBalance() { return _accountBalance; }
+
+  bool getMarkedForDelete() { return _markedForDelete; }
 
   void printClient() {
 
@@ -241,5 +248,21 @@ public:
   static clsBankClient getAddNewClientObject(string accountNumber) {
     return clsBankClient(enMode::addNewMode, "", "", "", "", accountNumber,
                          0000, 0);
+  }
+
+  bool deleteClient() {
+    vector<clsBankClient> vClients;
+    vClients = _loadClientsDataFromFile();
+    for (clsBankClient &c : vClients) {
+      if (c.getAccountNumber() == _accountNumber) {
+        c._markedForDelete = true;
+        break;
+      }
+    }
+
+    _saveClientsDataToFile(vClients);
+
+    *this = _getEmptyClientObject();
+    return true;
   }
 };
