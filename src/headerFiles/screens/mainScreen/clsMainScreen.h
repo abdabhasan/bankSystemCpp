@@ -5,6 +5,7 @@
 #include "../clientListScreen/clsClientListScreen.h"
 #include "../deleteClientScreen/clsDeleteClientScreen.h"
 #include "../screen/clsScreen.h"
+#include "../updateClientScreen/clsUpdateClientScreen.h"
 #include <iomanip>
 #include <iostream>
 
@@ -54,7 +55,7 @@ private:
   }
 
   static void _showUpdateClientScreen() {
-    cout << "\nUpdate Client Screen Will be here...\n";
+    clsUpdateClientScreen::showUpdateClientScreen();
   }
 
   static void _showFindClientScreen() {
