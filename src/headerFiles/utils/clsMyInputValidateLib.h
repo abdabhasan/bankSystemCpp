@@ -80,6 +80,30 @@ public:
     return number;
   }
 
+  static short
+  readShortNumber(string errorMessage = "Invalid number, Enter again\n") {
+    short number;
+    while (!(cin >> number)) {
+      cin.clear();
+      cin.ignore(numeric_limits<streamsize>::max(), '\n');
+      cout << errorMessage;
+    }
+    return number;
+  }
+
+  static short readShortNumberBetween(
+      short from, short to,
+      string errorMessage = "Number isn't in range, try again:\n") {
+
+    short number = readShortNumber();
+
+    while (!isNumberBetween(number, from, to)) {
+      cout << errorMessage;
+      number = readShortNumber();
+    }
+    return number;
+  }
+
   static double
   readDblNumber(string errorMessage = "Invalid number, Enter again\n") {
     double number;
