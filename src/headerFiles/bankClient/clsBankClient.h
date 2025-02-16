@@ -265,4 +265,8 @@ public:
     *this = _getEmptyClientObject();
     return true;
   }
+
+  static vector<clsBankClient> getClientsList() {
+    return _loadClientsDataFromFile();
+  }
 };
