@@ -1,8 +1,9 @@
 #pragma once
 
+#include "../../utils/clsMyInputValidateLib.h"
+#include "../addNewClientScreen/clsAddNewClientScreen.h"
 #include "../clientListScreen/clsClientListScreen.h"
 #include "../screen/clsScreen.h"
-#include "../utils/clsMyInputValidateLib.h"
 #include <iomanip>
 #include <iostream>
 
@@ -44,7 +45,7 @@ private:
   }
 
   static void _showAddNewClientsScreen() {
-    cout << "\nAdd New Client Screen Will be here...\n";
+    clsAddNewClientScreen::showAddNewClientScreen();
   }
 
   static void _showDeleteClientScreen() {

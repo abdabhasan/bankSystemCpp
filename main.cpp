@@ -1,5 +1,5 @@
 #include "./src/headerFiles/bankClient/clsBankClient.h"
-#include "./src/headerFiles/mainScreen/clsMainScreen.h"
+#include "./src/headerFiles/screens/mainScreen/clsMainScreen.h"
 #include <iomanip>
 #include <iostream>
 
@@ -155,5 +155,6 @@ void showClientsList() {
 int main() {
 
   clsMainScreen::showMainMenu();
+
   return 0;
 }
