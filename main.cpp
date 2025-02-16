@@ -1,4 +1,5 @@
 #include "src/headerFiles/bankClient/clsBankClient.h"
+#include <iomanip>
 #include <iostream>
 
 using namespace std;
@@ -110,9 +111,49 @@ void deleteClient() {
   }
 }
 
+void printClientRecordLine(clsBankClient client) {
+
+  cout << "| " << setw(15) << left << client.getAccountNumber();
+  cout << "| " << setw(20) << left << client.getFullName();
+  cout << "| " << setw(12) << left << client.getPhone();
+  cout << "| " << setw(20) << left << client.getEmail();
+  cout << "| " << setw(10) << left << client.getPinCode();
+  cout << "| " << setw(12) << left << client.getAccountBalance();
+}
+
+void showClientsList() {
+  vector<clsBankClient> vClients = clsBankClient::getClientsList();
+
+  cout << "\n\t\t\t\t\tClient List (" << vClients.size() << ") Client(s).";
+  cout << "\n_______________________________________________________";
+  cout << "_________________________________________\n" << endl;
+
+  cout << "| " << left << setw(15) << "Accout Number";
+  cout << "| " << left << setw(20) << "Client Name";
+  cout << "| " << left << setw(12) << "Phone";
+  cout << "| " << left << setw(20) << "Email";
+  cout << "| " << left << setw(10) << "Pin Code";
+  cout << "| " << left << setw(12) << "Balance";
+  cout << "\n_______________________________________________________";
+  cout << "_________________________________________\n" << endl;
+
+  if (vClients.size() == 0)
+    cout << "\t\t\t\tNo Clients Available In the System!";
+  else
+
+    for (clsBankClient client : vClients) {
+
+      printClientRecordLine(client);
+      cout << endl;
+    }
+
+  cout << "\n_______________________________________________________";
+  cout << "_________________________________________\n" << endl;
+}
+
 int main() {
 
-  deleteClient();
+  showClientsList();
 
   return 0;
 }
