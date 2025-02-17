@@ -5,6 +5,7 @@
 #include "../clientListScreen/clsClientListScreen.h"
 #include "../deleteClientScreen/clsDeleteClientScreen.h"
 #include "../screen/clsScreen.h"
+#include "../transactionsScreen/clsTransactionsScreen.h"
 #include "../updateClientScreen/clsUpdateClientScreen.h"
 #include <iomanip>
 #include <iostream>
@@ -63,7 +64,7 @@ private:
   }
 
   static void _showTransactionsMenu() {
-    cout << "\nTransactions Menu Will be here...\n";
+    clsTransactionsScreen::showTransactionsMenu();
   }
 
   static void _showManageUsersMenu() {
@@ -107,11 +108,13 @@ private:
     case enMainMenuOptions::eShowTransactionsMenu:
       system("clear");
       _showTransactionsMenu();
+      _goBackToMainMenu();
       break;
 
     case enMainMenuOptions::eManageUsers:
       system("clear");
       _showManageUsersMenu();
+      _goBackToMainMenu();
       break;
 
     case enMainMenuOptions::eExit:
