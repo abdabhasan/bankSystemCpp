@@ -276,9 +276,14 @@ public:
     saveClient();
   }
 
-  void withdraw(double amount) {
-    setAccountBalance(getAccountBalance() - amount);
+  bool withdraw(double amount) {
+    if (amount > getAccountBalance()) {
+      return false;
+    } else {
+      setAccountBalance(getAccountBalance() - amount);
 
-    saveClient();
+      saveClient();
+      return true;
+    }
   }
 };
