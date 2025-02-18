@@ -4,6 +4,7 @@
 #include "../addNewClientScreen/clsAddNewClientScreen.h"
 #include "../clientListScreen/clsClientListScreen.h"
 #include "../deleteClientScreen/clsDeleteClientScreen.h"
+#include "../manageUsersScreen/clsManageUsersScreen.h"
 #include "../screen/clsScreen.h"
 #include "../transactionsScreen/clsTransactionsScreen.h"
 #include "../updateClientScreen/clsUpdateClientScreen.h"
@@ -68,7 +69,7 @@ private:
   }
 
   static void _showManageUsersMenu() {
-    cout << "\nUsers Menu Will be here...\n";
+    clsManageUsersScreen::showManageUsersMenu();
   }
 
   static void _showEndScreen() { cout << "\nEnd Screen Will be here...\n"; }

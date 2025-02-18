@@ -56,3 +56,5 @@ Makefile
 *.log
 *.user
 
+main
+clients.txt
