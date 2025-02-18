@@ -8,7 +8,9 @@ int main() {
 
   while (true) {
 
-    clsLoginScreen::showLoginScreen();
+    if (!clsLoginScreen::showLoginScreen()) {
+      break;
+    }
   }
 
   return 0;
