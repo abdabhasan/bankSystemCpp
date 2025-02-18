@@ -269,4 +269,21 @@ public:
   static vector<clsBankClient> getClientsList() {
     return _loadClientsDataFromFile();
   }
+
+  void deposit(double amount) {
+    setAccountBalance(getAccountBalance() + amount);
+
+    saveClient();
+  }
+
+  bool withdraw(double amount) {
+    if (amount > getAccountBalance()) {
+      return false;
+    } else {
+      setAccountBalance(getAccountBalance() - amount);
+
+      saveClient();
+      return true;
+    }
+  }
 };

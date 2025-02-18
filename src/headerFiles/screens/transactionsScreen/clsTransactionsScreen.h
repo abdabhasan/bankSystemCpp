@@ -2,6 +2,8 @@
 #include "../../bankClient/clsBankClient.h"
 #include "../../utils/clsMyInputValidateLib.h"
 #include "../screen/clsScreen.h"
+#include "./depositScreen/clsDepositScreen.h"
+#include "./withdrawScreen/clsWithdrawScreen.h"
 #include <iomanip>
 #include <iostream>
 using namespace std;
@@ -24,13 +26,9 @@ private:
     return choice;
   }
 
-  static void _showDepositScreen() {
-    cout << "\n Deposit Screen will be here.\n";
-  }
+  static void _showDepositScreen() { clsDepositScreen::showDepositScreen(); }
 
-  static void _showWithdrawScreen() {
-    cout << "\n Withdraw Screen will be here.\n";
-  }
+  static void _showWithdrawScreen() { clsWithdrawScreen::ShowWithdrawScreen(); }
 
   static void _showTotalBalancesScreen() {
     cout << "\n Balances Screen will be here.\n";
