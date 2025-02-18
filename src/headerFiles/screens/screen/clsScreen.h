@@ -1,7 +1,7 @@
 #pragma once
 
+#include "../../utils/clsMyDateLib.h"
 #include <iostream>
-
 using namespace std;
 
 class clsScreen {
@@ -13,7 +13,10 @@ protected:
     if (subTitle != "") {
       cout << "\n\t\t\t\t\t  " << subTitle;
     }
-    cout << "\n\t\t\t\t\t______________________________________\n\n";
+    cout << "\n\t\t\t\t\t______________________________________\n";
+    cout << "\n\t\t\t\t\tUsername: " << currentUser.getUserName() << "\n";
+    cout << "\t\t\t\t\tDate: " << clsMyDateLib::dateToString(clsMyDateLib())
+         << "\n\n";
   }
 
   static bool checkAccessRights(clsUser::enPermissions permission) {
