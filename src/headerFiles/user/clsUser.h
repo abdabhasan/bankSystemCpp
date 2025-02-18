@@ -267,4 +267,15 @@ public:
   }
 
   static vector<clsUser> getUsersList() { return _loadUsersDataFromFile(); }
+
+  bool checkAccessPermission(enPermissions permission) {
+    if (this->getPermissions() == enPermissions::eAll)
+      return true;
+
+    if ((permission & this->getPermissions()) == permission)
+      return true;
+
+    else
+      return false;
+  }
 };

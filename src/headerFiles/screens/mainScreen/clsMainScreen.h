@@ -72,7 +72,10 @@ private:
     clsManageUsersScreen::showManageUsersMenu();
   }
 
-  static void _showEndScreen() { cout << "\nEnd Screen Will be here...\n"; }
+  static void _logout() {
+
+    currentUser = clsUser::findUserByUserNameAndPassword("", "");
+  }
 
   static void _perfromMainMenuOption(enMainMenuOptions mainMenuOption) {
     switch (mainMenuOption) {
@@ -120,9 +123,7 @@ private:
 
     case enMainMenuOptions::eExit:
       system("clear");
-      _showEndScreen();
-      // Login();
-
+      _logout();
       break;
     }
   }
