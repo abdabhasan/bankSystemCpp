@@ -1,4 +1,3 @@
-#include "./src/headerFiles/bankClient/clsBankClient.h"
 #include "./src/headerFiles/screens/mainScreen/clsMainScreen.h"
 #include <iomanip>
 #include <iostream>

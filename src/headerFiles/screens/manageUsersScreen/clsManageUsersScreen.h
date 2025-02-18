@@ -1,7 +1,7 @@
 #pragma once
-#include "../../bankClient/clsBankClient.h"
 #include "../../utils/clsMyInputValidateLib.h"
 #include "../screen/clsScreen.h"
+#include "./listUsersScreen/clsListUsersScreen.h"
 #include <iomanip>
 #include <iostream>
 using namespace std;
@@ -33,9 +33,7 @@ private:
     showManageUsersMenu();
   }
 
-  static void _showListUsersScreen() {
-    cout << "\nList Users Screen Will Be Here.\n";
-  }
+  static void _showListUsersScreen() { clsListUsersScreen::showUsersList(); }
 
   static void _showAddNewUserScreen() {
     cout << "\nAdd New User Screen Will Be Here.\n";
