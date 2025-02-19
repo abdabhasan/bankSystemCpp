@@ -17,6 +17,15 @@ private:
 
   bool _markedForDelete = false;
 
+  string _prepareLogInRecord(string seperator = "#//#") {
+    string loginRecord = "";
+    loginRecord += clsMyDateLib::getSystemDateTimeString() + seperator;
+    loginRecord += getUserName() + seperator;
+    loginRecord += getPassword() + seperator;
+    loginRecord += to_string(getPermissions());
+    return loginRecord;
+  }
+
   static clsUser _convertLinetoUserObject(string line,
                                           string seperator = "#//#") {
     vector<string> vUserData;
@@ -277,5 +286,20 @@ public:
 
     else
       return false;
+  }
+
+  void registerLogin() {
+
+    string stDataLine = _prepareLogInRecord();
+
+    fstream myFile;
+    myFile.open("loginRegister.txt", ios::out | ios::app);
+
+    if (myFile.is_open()) {
+
+      myFile << stDataLine << endl;
+
+      myFile.close();
+    }
   }
 };
