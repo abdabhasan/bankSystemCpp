@@ -15,14 +15,15 @@ private:
     eDeposit = 1,
     eWithdraw = 2,
     eShowTotalBalance = 3,
-    eShowMainMenu = 4
+    eTransfer = 4,
+    eShowMainMenu = 5
   };
 
   static short _readTransactionsMenuOption() {
     cout << setw(37) << left << ""
-         << "Choose what do you want to do? [1 to 4]? ";
+         << "Choose what do you want to do? [1 to 5]? ";
     short choice = clsMyInputValidateLib::readShortNumberBetween(
-        1, 4, "Enter Number between 1 to 4? ");
+        1, 5, "Enter Number between 1 to 5? ");
     return choice;
   }
 
@@ -58,6 +59,13 @@ private:
       break;
     }
 
+    case enTransactionsMenuOptions::eTransfer: {
+      system("clear");
+      _showTotalBalancesScreen();
+      _goBackToTransactionsMenu();
+      break;
+    }
+
     case enTransactionsMenuOptions::eShowTotalBalance: {
       system("clear");
       _showTotalBalancesScreen();
@@ -89,7 +97,8 @@ public:
     cout << setw(37) << left << "" << "\t[1] Deposit.\n";
     cout << setw(37) << left << "" << "\t[2] Withdraw.\n";
     cout << setw(37) << left << "" << "\t[3] Total Balances.\n";
-    cout << setw(37) << left << "" << "\t[4] Main Menu.\n";
+    cout << setw(37) << left << "" << "\t[4] Transfer.\n";
+    cout << setw(37) << left << "" << "\t[5] Main Menu.\n";
     cout << setw(37) << left << ""
          << "===========================================\n";
 

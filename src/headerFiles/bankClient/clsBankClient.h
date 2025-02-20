@@ -286,4 +286,14 @@ public:
       return true;
     }
   }
+
+  bool transfer(float amount, clsBankClient &destinationClient) {
+    if (amount > getAccountBalance()) {
+      return false;
+    }
+
+    withdraw(amount);
+    destinationClient.deposit(amount);
+    return true;
+  }
 };
