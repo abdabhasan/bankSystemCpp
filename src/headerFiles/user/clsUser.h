@@ -1,5 +1,6 @@
 #pragma once
 #include "../person/clsPerson.h"
+#include "../utils/clsMyDateLib.h"
 #include "../utils/clsMyStringLib.h"
 #include <fstream>
 #include <iostream>
@@ -137,7 +138,15 @@ public:
     pUpdateClients = 8,
     pFindClient = 16,
     pTranactions = 32,
-    pManageUsers = 64
+    pManageUsers = 64,
+    pShowLoginRegister = 128
+  };
+
+  struct stLoginRegisterRecord {
+    string dateTime;
+    string userName;
+    string password;
+    int permissions;
   };
 
   clsUser(enMode mode, string firstName, string lastName, string email,
@@ -301,5 +310,45 @@ public:
 
       myFile.close();
     }
+  }
+
+  static vector<stLoginRegisterRecord> getLoginRegisterList() {
+    vector<stLoginRegisterRecord> vLoginRegisterRecord;
+
+    fstream myFile;
+    myFile.open("loginRegister.txt", ios::in); // read Mode
+
+    if (myFile.is_open()) {
+
+      string line;
+
+      stLoginRegisterRecord loginRegisterRecord;
+
+      while (getline(myFile, line)) {
+
+        loginRegisterRecord = _convertLoginRegisterLineToRecord(line);
+
+        vLoginRegisterRecord.push_back(loginRegisterRecord);
+      }
+
+      myFile.close();
+    }
+
+    return vLoginRegisterRecord;
+  }
+
+private:
+  static stLoginRegisterRecord
+  _convertLoginRegisterLineToRecord(string line, string seperator = "#//#") {
+    stLoginRegisterRecord loginRegisterRecord;
+
+    vector<string> loginRegisterDataLine =
+        clsMyStringLib::split(line, seperator);
+    loginRegisterRecord.dateTime = loginRegisterDataLine[0];
+    loginRegisterRecord.userName = loginRegisterDataLine[1];
+    loginRegisterRecord.password = loginRegisterDataLine[2];
+    loginRegisterRecord.permissions = stoi(loginRegisterDataLine[3]);
+
+    return loginRegisterRecord;
   }
 };
