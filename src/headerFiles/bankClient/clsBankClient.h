@@ -120,6 +120,38 @@ private:
     }
   }
 
+  string _prepareTransferLogRecord(float amount,
+                                   clsBankClient destinationClient,
+                                   string UserName, string seperator = "#//#") {
+    string transferLogRecord = "";
+    transferLogRecord += clsMyDateLib::getSystemDateTimeString() + seperator;
+    transferLogRecord += getAccountNumber() + seperator;
+    transferLogRecord += destinationClient.getAccountNumber() + seperator;
+    transferLogRecord += to_string(amount) + seperator;
+    transferLogRecord += to_string(getAccountBalance()) + seperator;
+    transferLogRecord +=
+        to_string(destinationClient.getAccountBalance()) + seperator;
+    transferLogRecord += UserName;
+    return transferLogRecord;
+  }
+
+  void _registerTransferLog(float amount, clsBankClient destinationClient,
+                            string username) {
+
+    string stDataLine =
+        _prepareTransferLogRecord(amount, destinationClient, username);
+
+    fstream myFile;
+    myFile.open("transferLog.txt", ios::out | ios::app);
+
+    if (myFile.is_open()) {
+
+      myFile << stDataLine << endl;
+
+      myFile.close();
+    }
+  }
+
 public:
   clsBankClient(enMode mode, string firstName, string lastName, string email,
                 string phone, string accountNumber, short pinCode,
@@ -285,5 +317,18 @@ public:
       saveClient();
       return true;
     }
+  }
+
+  bool transfer(float amount, clsBankClient &destinationClient,
+                string username) {
+    if (amount > getAccountBalance()) {
+      return false;
+    }
+
+    withdraw(amount);
+    destinationClient.deposit(amount);
+    _registerTransferLog(amount, destinationClient, username);
+
+    return true;
   }
 };
